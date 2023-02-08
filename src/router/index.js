@@ -20,38 +20,7 @@ const routes = [
             requiresAuth: true
         }
     },
-    {
-        path: '/my-rentals',
-        name: 'MyRentals',
-        component: () => import('../views/MyRentals.vue'),
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/news',
-        name: 'News',
-        component: () => import('../views/News.vue'),
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/contact',
-        name: 'Contact',
-        component: () => import('../views/Contact.vue'),
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/my-expenses',
-        name: 'MyExpenses',
-        component: () => import('../views/MyExpenses.vue'),
-        meta: {
-            requiresAuth: true
-        }
-    }
+
 ]
 
 const router = createRouter({

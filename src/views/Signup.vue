@@ -9,6 +9,15 @@
         class="form-control form-control-lg"
       />
     </div>
+    <br>
+    <div class="form-group">
+      <input
+        type="text"
+        v-model="signupForm.contactnumber"
+        placeholder="Contact Number"
+        class="form-control form-control-lg"
+      />
+    </div>
     <br />
     <div class="form-group">
       <input
