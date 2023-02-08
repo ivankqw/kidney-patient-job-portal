@@ -12,7 +12,10 @@
         <option value="Medium Activity">Medium Activity</option>
         <option value="High Activity">High Activity</option>
       </select>
-
+      <br>
+      <label for="mobility_issues">Additional details for mobility issues:</label><br>
+      <textarea name="mobility_issues" id="" cols="100" rows="10" v-model="profile.mobilityissues"></textarea>
+      <br>
       <label for="skills">Skills and past experience</label><br>
       <textarea name="skills" id="" cols="100" rows="10" v-model="profile.skills"></textarea>
     </div>
@@ -34,6 +37,7 @@ export default {
       profile: {
         mobilitystatus: '',
         skills: '',
+        mobilityissues: '',
       },
       userdata: 'null',
       currentDoc: null
@@ -49,6 +53,7 @@ export default {
       (doc) => {
         this.profile.mobilitystatus = doc.data().mobilitystatus;
         this.profile.skills = doc.data().skills
+        this.profile.mobilityissues = doc.data().mobilityissues;
         
       });
 
@@ -69,7 +74,23 @@ export default {
           mobilitystatus: this.profile.mobilitystatus,
         };
         await setDoc(doc(db, "Users", userEmail), updatedData);
-        this.mobilitystatus = '';
+        this.profile.mobilitystatus = '';
+        alert('saved successfully!');
+      } catch (error) {
+        console.error(error);
+        alert('An error occurred while saving ');
+      }
+      }
+
+      if (this.profile.mobilityissues != '') {
+        try {
+        this.currentDoc = await getDoc(doc(db, "Users", userEmail));
+        let updatedData = {
+          ...this.currentDoc.data(),
+          mobilityissues: this.profile.mobilityissues,
+        };
+        await setDoc(doc(db, "Users", userEmail), updatedData);
+        this.profile.mobilityissues = '';
         alert('saved successfully!');
       } catch (error) {
         console.error(error);
