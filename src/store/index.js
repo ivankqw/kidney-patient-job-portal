@@ -71,7 +71,8 @@ export default createStore({
     },
 
     async signup({ commit }, details) {
-      const { name, email, password } = details;
+      console.log(details)
+      const { name, email, password, contactnumber, userType } = details;
 
       try {
         await createUserWithEmailAndPassword(auth, email, password);
@@ -97,7 +98,9 @@ export default createStore({
 
       try {
         await setDoc(doc(db, "Users", email), {
-          name: name
+          name: name,
+          contactnumber: contactnumber,
+          userType: userType
         })
       } catch (error) {
         console.log(error)
