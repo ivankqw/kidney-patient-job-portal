@@ -36,21 +36,7 @@
               >My Profile</router-link
             >
           </li>
-          <li class="nav-item active">
-            <router-link to="/my-expenses" class="nav-link" style="color: white"
-              >My Expenses</router-link
-            >
-          </li>
-          <li class="nav-item active">
-            <router-link to="/news" class="nav-link" style="color: white"
-              >News</router-link
-            >
-          </li>
-          <li class="nav-item active">
-            <router-link to="/contact" class="nav-link" style="color: white"
-              >Contact Us</router-link
-            >
-          </li>
+          
           <li class="nav-item d-lg-none d-xl-none" v-if=$store.state.email>
             <button
               class="btn btn-outline-dark"
