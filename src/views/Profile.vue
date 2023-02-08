@@ -1,27 +1,37 @@
 <template>
   <h3> Welcome back, {{ $store.state.name }} </h3>
   <h3> Your email is {{ $store.state.email }} </h3>
-  <h3> Your mobility: {{ this.profile.mobilitystatus }}</h3>
-  <h3> Your skills and past experience: {{  this.profile.skills }} </h3>
-  <form @submit.prevent="submitForm">
-    <div>
-      <label>Mobility status:</label>
-      <select v-model="profile.mobilitystatus" class="form-control form-control-lg" placeholder="Select User Type" >
-        <option value="Sedentary">Sedentary</option>
-        <option value="Low Activity">Low Activity</option>
-        <option value="Medium Activity">Medium Activity</option>
-        <option value="High Activity">High Activity</option>
-      </select>
-      <br>
-      <label for="mobility_issues">Additional details for mobility issues:</label><br>
-      <textarea name="mobility_issues" id="" cols="100" rows="10" v-model="profile.mobilityissues"></textarea>
-      <br>
-      <label for="skills">Skills and past experience</label><br>
-      <textarea name="skills" id="" cols="100" rows="10" v-model="profile.skills"></textarea>
-    </div>
 
-    <button type="submit">Save</button>
-  </form>
+  <div v-if="this.usertype == 'Employer'">
+    <h3>Hi employer</h3>
+  </div>
+
+  <div v-if="this.usertype == 'Job Seeker'">
+    <h3>Hi Job Seeker</h3>
+
+    <h3> Your mobility: {{ this.profile.mobilitystatus }}</h3>
+    <h3> Your skills and past experience: {{ this.profile.skills }} </h3>
+    <form @submit.prevent="submitForm">
+      <div>
+        <label>Mobility status:</label>
+        <select v-model="profile.mobilitystatus" class="form-control form-control-lg" placeholder="Select User Type">
+          <option value="Sedentary">Sedentary</option>
+          <option value="Low Activity">Low Activity</option>
+          <option value="Medium Activity">Medium Activity</option>
+          <option value="High Activity">High Activity</option>
+        </select>
+        <br>
+        <label for="mobility_issues">Additional details for mobility issues:</label><br>
+        <textarea name="mobility_issues" id="" cols="100" rows="10" v-model="profile.mobilityissues"></textarea>
+        <br>
+        <label for="skills">Skills and past experience</label><br>
+        <textarea name="skills" id="" cols="100" rows="10" v-model="profile.skills"></textarea>
+      </div>
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+
 </template>
 
 <script>
@@ -39,25 +49,26 @@ export default {
         skills: '',
         mobilityissues: '',
       },
-      userdata: 'null',
+      usertype: 'null',
       currentDoc: null
     };
   },
-  
+
   async mounted() {
 
     const auth = getAuth();
     const userEmail = auth.currentUser.email;
     onSnapshot(doc(db, "Users", userEmail),
-    { includeMetadataChanges: true },
+      { includeMetadataChanges: true },
       (doc) => {
         this.profile.mobilitystatus = doc.data().mobilitystatus;
         this.profile.skills = doc.data().skills
         this.profile.mobilityissues = doc.data().mobilityissues;
-        
+        this.usertype = doc.data().userType
+
       });
 
-      this.currentDoc = await getDoc(doc(db, "Users", userEmail));
+    this.currentDoc = await getDoc(doc(db, "Users", userEmail));
 
   },
 
@@ -68,52 +79,52 @@ export default {
       // mobility
       if (this.profile.mobilitystatus != '') {
         try {
-        this.currentDoc = await getDoc(doc(db, "Users", userEmail));
-        let updatedData = {
-          ...this.currentDoc.data(),
-          mobilitystatus: this.profile.mobilitystatus,
-        };
-        await setDoc(doc(db, "Users", userEmail), updatedData);
-        this.profile.mobilitystatus = '';
-        alert('saved successfully!');
-      } catch (error) {
-        console.error(error);
-        alert('An error occurred while saving ');
-      }
+          this.currentDoc = await getDoc(doc(db, "Users", userEmail));
+          let updatedData = {
+            ...this.currentDoc.data(),
+            mobilitystatus: this.profile.mobilitystatus,
+          };
+          await setDoc(doc(db, "Users", userEmail), updatedData);
+          this.profile.mobilitystatus = '';
+          alert('saved successfully!');
+        } catch (error) {
+          console.error(error);
+          alert('An error occurred while saving ');
+        }
       }
 
       if (this.profile.mobilityissues != '') {
         try {
-        this.currentDoc = await getDoc(doc(db, "Users", userEmail));
-        let updatedData = {
-          ...this.currentDoc.data(),
-          mobilityissues: this.profile.mobilityissues,
-        };
-        await setDoc(doc(db, "Users", userEmail), updatedData);
-        this.profile.mobilityissues = '';
-        alert('saved successfully!');
-      } catch (error) {
-        console.error(error);
-        alert('An error occurred while saving ');
-      }
+          this.currentDoc = await getDoc(doc(db, "Users", userEmail));
+          let updatedData = {
+            ...this.currentDoc.data(),
+            mobilityissues: this.profile.mobilityissues,
+          };
+          await setDoc(doc(db, "Users", userEmail), updatedData);
+          this.profile.mobilityissues = '';
+          alert('saved successfully!');
+        } catch (error) {
+          console.error(error);
+          alert('An error occurred while saving ');
+        }
       }
 
       if (this.profile.skills != '') {
         try {
-        this.currentDoc = await getDoc(doc(db, "Users", userEmail));
-        let updatedData = {
-          ...this.currentDoc.data(),
-          skills: this.profile.skills,
-        };
-        await setDoc(doc(db, "Users", userEmail), updatedData);
-        this.profile.skills = '';
-        alert('saved successfully!');
-      } catch (error) {
-        console.error(error);
-        alert('An error occurred while saving ');
+          this.currentDoc = await getDoc(doc(db, "Users", userEmail));
+          let updatedData = {
+            ...this.currentDoc.data(),
+            skills: this.profile.skills,
+          };
+          await setDoc(doc(db, "Users", userEmail), updatedData);
+          this.profile.skills = '';
+          alert('saved successfully!');
+        } catch (error) {
+          console.error(error);
+          alert('An error occurred while saving ');
+        }
       }
-      }
-      
+
     },
 
     mounted() {
