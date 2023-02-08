@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <a class="navbar-brand mb-0 h1" href="#" style="color: white">
         <img
-          class="d-inline-block align-bottom"
+          class="d-inline-block"
           src="./assets/icon.png"
           width="50"
           height="50"
