@@ -32,8 +32,8 @@
             >
           </li>
           <li class="nav-item active">
-            <router-link to="/my-rentals" class="nav-link" style="color: white"
-              >My Rentals</router-link
+            <router-link to="/my-profile" class="nav-link" style="color: white"
+              >My Profile</router-link
             >
           </li>
           <li class="nav-item active">
