@@ -9,8 +9,8 @@
   <div v-if="this.usertype == 'Job Seeker'">
     <h3>Hi Job Seeker</h3>
 
-    <h3> Your mobility: {{ this.profile.mobilitystatus }}</h3>
-    <h3> Your skills and past experience: {{ this.profile.skills }} </h3>
+    <h3> Your mobility: {{ this.profile1.mobilitystatus }}</h3>
+    <h3> Your skills and past experience: {{ this.profile1.skills }} </h3>
     <form @submit.prevent="submitForm">
       <div>
         <label>Mobility status:</label>
@@ -49,6 +49,11 @@ export default {
         skills: '',
         mobilityissues: '',
       },
+      profile1: {
+        mobilitystatus: '',
+        skills: '',
+        mobilityissues: '',
+      },
       usertype: 'null',
       currentDoc: null
     };
@@ -61,9 +66,9 @@ export default {
     onSnapshot(doc(db, "Users", userEmail),
       { includeMetadataChanges: true },
       (doc) => {
-        this.profile.mobilitystatus = doc.data().mobilitystatus;
-        this.profile.skills = doc.data().skills
-        this.profile.mobilityissues = doc.data().mobilityissues;
+        this.profile1.mobilitystatus = doc.data().mobilitystatus;
+        this.profile1.skills = doc.data().skills
+        this.profile1.mobilityissues = doc.data().mobilityissues;
         this.usertype = doc.data().userType
 
       });
@@ -85,7 +90,7 @@ export default {
             mobilitystatus: this.profile.mobilitystatus,
           };
           await setDoc(doc(db, "Users", userEmail), updatedData);
-          this.profile.mobilitystatus = '';
+          
           alert('saved successfully!');
         } catch (error) {
           console.error(error);
@@ -101,7 +106,7 @@ export default {
             mobilityissues: this.profile.mobilityissues,
           };
           await setDoc(doc(db, "Users", userEmail), updatedData);
-          this.profile.mobilityissues = '';
+          
           alert('saved successfully!');
         } catch (error) {
           console.error(error);
@@ -117,7 +122,7 @@ export default {
             skills: this.profile.skills,
           };
           await setDoc(doc(db, "Users", userEmail), updatedData);
-          this.profile.skills = '';
+          
           alert('saved successfully!');
         } catch (error) {
           console.error(error);
