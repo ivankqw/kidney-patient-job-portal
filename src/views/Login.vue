@@ -1,4 +1,11 @@
 <template>
+  <div class="container mt-5">
+  <div class="row">
+  <div class="col-md-6">
+    <img src="../assets/download.jpeg" class="img-fluid m-1" alt="Responsive image">
+    <img src="../assets/download2.jpeg" class="img-fluid m-1" alt="Responsive image">
+  </div>
+  <div class="col-md-6 p-5"> 
   <h1>Log In</h1>
   <form @submit.prevent="login">
     <div class="form-group">
@@ -26,6 +33,9 @@
       Don't have an account? <router-link to="/signup">Sign Up</router-link>
     </p>
   </form>
+</div>
+</div>
+</div>
 </template>
 
 <script>
